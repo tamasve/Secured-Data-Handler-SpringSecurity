@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * Dec 2023
  */
 
-// Front-End: with React like https://cas.au.dk/en/cfp/news-events
+// Front-End: with React, like https://cas.au.dk/en/cfp/news-events
 
 @SpringBootApplication
 public class SecuredDataHandlerSpringBeApplication {

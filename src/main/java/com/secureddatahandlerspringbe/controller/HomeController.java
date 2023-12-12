@@ -41,8 +41,8 @@ public class HomeController {
 
     
     // how to receive JS object from FE
-    @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
+    @PostMapping("/loginuser")
+    public ResponseEntity<String> loginuser(@RequestBody LoginRequest loginRequest) {
         System.out.println(loginRequest.getPassword());
         return ResponseEntity.ok("password: " + loginRequest.getPassword());
     }

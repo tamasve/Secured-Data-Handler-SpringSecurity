@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+	<title>SFJ - Minden napra egy sztori</title>
+	<link rel="stylesheet" href="./blog.css" th:href="@{blog.css}"/>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
+		
+<!--	<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css' />	-->
+<!--	<link href='https://fonts.googleapis.com/css?family=Exo' rel='stylesheet' type='text/css' />-->
+</head>
+<body>
+
+	<div >
+
+		<form name="login" th:action="@{/login}" method="post" class="form-signin">		<!-- Spring Sec. will automatically process the form -->
+			
+			<h2 class="form-signin-heading">Kérlek jelentkezz be</h2>
+			
+			<div id="err" th:if="${param.error}" class="alert alert-danger">	<!-- this div appears only when Spring Sec. sends back an error -->
+				Hibás felhasználói név vagy jelszó						<!-- (If the user fails to authenticate, the page is redirected to /login?error by Spring Sec.) -->
+			</div>
+			
+			<div th:if="${param.logout}" class="alert alert-success">	<!-- logout: redirection to /login?logout -->
+				Sikeresen kijelentkeztél
+			</div>
+			
+			<label for="username" class="sr-only">Felhasználói név</label> 
+			    <input type="text" id="username" name="username" class="form-control" placeholder="Felhasználói név" required="true" /> 
+			<label for="password" class="sr-only">Jelszó</label> 
+			    <input type="password" id="password" name="password" class="form-control" placeholder="Jelszó" required="true" />
+			<div class="checkbox">
+				<label> <input id="remember-me" name="remember-me" type="checkbox" /> Emlékezz rám
+				</label>
+			</div>
+			<button class="btn btn-lg btn-primary btn-block" type="submit">Bejelentkezés</button>
+		</form>
+
+      <a href="/registration">Regisztrálni szeretnék</a>
+	</div>
+
+</body>
+</html>

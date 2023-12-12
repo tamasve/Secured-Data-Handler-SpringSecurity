@@ -8,48 +8,36 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+
 
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
 public class SecurityConfig {
 
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity.csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/", "/good", "/bad", "/registrate", "/mail", "/activate").permitAll()
+                .requestMatchers("/", "/good", "/loginn", "/bad", "/mail", "/registrate", "/activate").permitAll()
                 .requestMatchers("/home", "/users", "/contracts").authenticated()           //.hasRole("USER")   // -> ROLE_USER!
-                .and().formLogin()
-                .and().build();
+                .and().formLogin(
+//                        login -> login
+//                        .loginPage("/login") 				// we give an own login html site - this will ask for login data and send them back to Spring Sec.
+//                        .permitAll()
+                        )
+                .and()
+                .build();
     }
 
     @Bean
     public UserDetailsService userDetailsService() {
         return new UserDataUserDetailsService();
     }
-//    public UserDetailsService userDetailsService(PasswordEncoder passwordEncoder) {
-//
-//        UserDetails user = User
-//                .withUsername("tamas")
-//                .password(passwordEncoder.encode("1234"))
-//                .roles("USER")              // -> ROLE_USER!
-//                .build();
-//        UserDetails admin = User
-//                .withUsername("admin")
-//                .password(passwordEncoder.encode("1234"))
-//                .roles("ADMIN")
-//                .build();
-//        return new InMemoryUserDetailsManager(user, admin);
-//    }
 
     @Bean
     public PasswordEncoder passwordEncoder() { return new BCryptPasswordEncoder(); }
@@ -62,7 +50,7 @@ public class SecurityConfig {
         return daoAuthenticationProvider;
     }
 
-    // Load initial user data
+    // Load initial user data if User table in DB is void
     @Bean
     public CommandLineRunner userDataLoader(UserDataRepository userDataRepository, PasswordEncoder passwordEncoder)  {
 
