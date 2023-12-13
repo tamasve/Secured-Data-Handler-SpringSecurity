@@ -5,9 +5,6 @@ import com.secureddatahandlerspringbe.security.LoginRequest;
 import com.secureddatahandlerspringbe.security.RegistrationRequest;
 import com.secureddatahandlerspringbe.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,10 +19,10 @@ public class HomeController {
     EmailService emailService;
 
 
-    @GetMapping("/")
-    public String root() {
-        return "This is the root page";
-    }
+//    @GetMapping("/")
+//    public String root() {
+//        return "This is the root page";
+//    }
 
     // how to send JS object to FE
     @GetMapping("/good")
