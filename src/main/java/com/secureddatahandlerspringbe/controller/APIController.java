@@ -10,4 +10,9 @@ public class APIController {
     public String login() {
         return "login";
     }
+
+    @GetMapping("/reg")
+    public String reg() {
+        return "registration";
+    }
 }
