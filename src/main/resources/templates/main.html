@@ -2,7 +2,7 @@
 <html lang="en"
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="https://www.thymeleaf.org/doc/articles/springsecurity.html">
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -29,7 +29,7 @@
 				        <li class=""><a href="/login">Login</a></li>
 				    </ul>
 				    <div class="navbar-text navbar-right">
-				    	Welcome <span sec:authentication="name">Anonymous </span>			<!-- param received from Spring Sec. -->
+				    	Welcome <span sec:authentication="principal.name">Anonymous </span>			<!-- param received from Spring Sec. -->
 			           <form sec:authorize="isAuthenticated()" id="frmlogout" th:action="@{/logout}" method="post" class="form-inline">		<!-- this content appears only when the user is authenticated: a mini form -->
 				    		>> <a href="javascript:{}" onclick="document.getElementById('frmlogout').submit(); return false;">Logout</a>
 				      </form>

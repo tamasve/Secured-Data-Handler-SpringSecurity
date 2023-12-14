@@ -1,83 +1,99 @@
 package com.secureddatahandlerspringbe.controller;
 
-import com.secureddatahandlerspringbe.security.JwtResponse;
-import com.secureddatahandlerspringbe.security.LoginRequest;
-import com.secureddatahandlerspringbe.security.RegistrationRequest;
-import com.secureddatahandlerspringbe.service.EmailService;
+import com.secureddatahandlerspringbe.security.UserData;
+import com.secureddatahandlerspringbe.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
-@RestController
+@Controller
 public class HomeController {
 
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
+
+
+    private UserService userService;
+
     @Autowired
-    EmailService emailService;
-
-
-//    @GetMapping("/")
-//    public String root() {
-//        return "This is the root page";
-//    }
-
-    // how to send JS object to FE
-    @GetMapping("/good")
-//    @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<JwtResponse> good() {
-        return ResponseEntity.ok(new JwtResponse("r234r2r32tz345z356u764","john", "e@gmail.com"));
-    }
-
-    @GetMapping("/bad")
-    public ResponseEntity<String> bad() {
-        return ResponseEntity.badRequest().body("nothing is OK");
-    }
-
-    
-    // how to receive JS object from FE
-    @PostMapping("/loginuser")
-    public ResponseEntity<String> loginuser(@RequestBody LoginRequest loginRequest) {
-        System.out.println(loginRequest.getPassword());
-        return ResponseEntity.ok("password: " + loginRequest.getPassword());
-    }
-
-    @PostMapping("/registrate")
-    public ResponseEntity<String> registrate(@RequestBody RegistrationRequest registrationRequest) {
-        System.out.println(registrationRequest.getPassword());
-        return ResponseEntity.ok("password: " + registrationRequest.getPassword());
-    }
-
-    @GetMapping("/mail")
-    public String mail() {
-        emailService.sendEmail("tamasjava@gmail.com", "Activation code", "You have to activate your account by clicking onto this link:\n\nhttp://localhost:8080/activate");
-        return "e-mail sent";
-    }
-
-    @GetMapping("/activate")
-    public String activate() {
-        return "Congratulation! You've successfully activated your account!";
-    }
-
-    @GetMapping("/home")
-    @PreAuthorize("hasRole('USER')")
-    public String home() {
-        return "This is the secured home page - accessed by USER";
-    }
-
-    @GetMapping("/contracts")
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public String contracts() {
-        return "This is the contracts page, accessible by USER or ADMIN";
-    }
-
-    @GetMapping("/users")
-    @PreAuthorize("hasRole('ADMIN')")
-    public String users() {
-        return "This is the secured user administrator page";
+    public void setUserService(UserService userService) {
+        this.userService = userService;
     }
 
 
+    @GetMapping("/loginn")
+    public String login() {
+        return "login";
+    }
+
+
+    // == REGISTRATION ==
+
+    @GetMapping("/registration")
+    public String registration(Model model) {
+        model.addAttribute("user", new UserData());
+        model.addAttribute("error", "");
+        return "registration";
+    }
+
+    @PostMapping("/reg")
+    public String reg(@ModelAttribute UserData user, Model model) {
+        // check if none of the 3 main params is void - if any is void >> back to registration page
+        if (user.getUsername().isEmpty() || user.getPassword().isEmpty() || user.getEmail().isEmpty()) {
+            log.error("Error! - Registration data contain void param");
+            model.addAttribute("user", user);
+//                    new UserData(0, user.getUsername(), user.getPassword(), user.getEmail(), "", "", false));
+            model.addAttribute("error", "Error! - Registration data contain void param");
+            return "registration";
+        };
+        String message = userService.registerUser(user);
+        log.info(message);
+        // any error during service activity
+        if (!message.equals("OK")) {
+            model.addAttribute("user", user);
+//                    new UserData(0, user.getUsername(), user.getPassword(), user.getEmail(), "", "", false));
+            model.addAttribute("error", message);
+            return "registration";
+        }
+        // new user save into DB was OK
+        model.addAttribute("message", "Registration was OK. You have to receive an e-mail about the activation.");
+        return "index";
+    }
+
+    @GetMapping("/activation/{code}")
+    public String activation(@PathVariable("code") String code, Model model) {
+        log.info("code: " + code);
+        String message = userService.userActivation(code);
+        log.info(message);
+        if (!message.equals("OK")) {
+            model.addAttribute("message", message);
+            return "error";
+        }
+        model.addAttribute("message", "Successful activation!");
+        return "index";
+    }
+
+    // == ==
+
+    @GetMapping("/")
+    public String index(Model model) {
+        log.info("user logged in: " + SecurityContextHolder.getContext().getAuthentication().getName());
+        model.addAttribute("message", "");
+        return "index";
+    }
+
+    @GetMapping("/main")
+    public String mainPage() {
+        return "main";
+    }
+
+    @ExceptionHandler
+    public String exceptionHandler(Model model, Exception exception) {
+        log.error("Exception happened");
+        model.addAttribute("message", exception.getCause());
+        return "error";
+    }
 }

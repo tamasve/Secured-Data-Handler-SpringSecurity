@@ -11,9 +11,10 @@
 																									<!-- variable expressions ${...}    selection expressions *{...}    mapping expressions @{...} -->
 		<form name="registration" th:action="@{/reg}" th:object="${user}" method="post" class="form-signin">		<!-- th:object - this form receive a User object 'user' through Model -->
 			<h2 class="form-signin-heading">Please registrate</h2>
-				<input type="text" id="name" name="name" th:field="*{name}" class="form-control" placeholder="Your name..."  /> 	<!-- th:field - field in the received User object - names = fields in POJO! -->
-		 	    <input type="text" id="email" name="email" th:field="*{email}" class="form-control" placeholder="E-mail..."  />
-			    <input type="password" id="password" name="password" th:field="*{password}"  class="form-control" placeholder="Password..." />
+			<h3 th:unless="${error.isEmpty()}" th:text="${error}">Error</h3>
+			<input type="text" id="username" name="username" th:field="*{username}" class="form-control" placeholder="Choose a username..."  /> 	<!-- th:field - field in the received User object - names = fields in POJO! -->
+			<input type="text" id="email" name="email" th:field="*{email}" class="form-control" placeholder="E-mail..."  />
+			<input type="password" id="password" name="password" th:field="*{password}"  class="form-control" placeholder="Password..." />
 			<button class="btn btn-lg btn-primary btn-block" type="submit">Registrate</button>		<!-- pushing button will send the User object too! (filled out) -->
 		</form>
 

@@ -23,7 +23,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity.csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/", "/main", "/good", "/loginn", "/bad", "/mail", "/reg", "/registration", "/registrate", "/activate", "/blog.css").permitAll()
+                .requestMatchers("/", "/main", "/data", "/loginn", "/bad", "/mail", "/reg", "/registration", "/registrate", "/activation/**", "/error", "/blog.css").permitAll()
                 .requestMatchers("/home", "/users", "/contracts").authenticated()           //.hasRole("USER")   // -> ROLE_USER!
                 .and().formLogin(
 //                        login -> login
@@ -56,9 +56,9 @@ public class SecurityConfig {
 
         return (args) -> {
             if (userDataRepository.findAll().isEmpty()) {
-                userDataRepository.save( new UserData(1, "tamas", "t@gmail.com", passwordEncoder.encode("1234"), "ROLE_USER") );
-                userDataRepository.save( new UserData(2, "admin", "a@gmail.com", passwordEncoder.encode("1234"), "ROLE_ADMIN") );
-                userDataRepository.save( new UserData(3, "mixed", "m@gmail.com", passwordEncoder.encode("1234"), "ROLE_USER,ROLE_ADMIN") );
+                userDataRepository.save( new UserData(1, "tamas", "t@gmail.com", passwordEncoder.encode("1234"), "ROLE_USER", "", true) );
+                userDataRepository.save( new UserData(2, "admin", "a@gmail.com", passwordEncoder.encode("1234"), "ROLE_ADMIN", "", true) );
+                userDataRepository.save( new UserData(3, "mixed", "m@gmail.com", passwordEncoder.encode("1234"), "ROLE_USER,ROLE_ADMIN", "", true) );
                 System.out.println("3 users were saved into DB");
             }
         };

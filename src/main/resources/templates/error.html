@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" layout:decorate="/main">
+<head>
+	<title>Error</title>
+	<link rel="stylesheet" href="./blog.css" th:href="@{blog.css}"/>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
+</head>
+<body>
+
+	<div layout:fragment="loginContent">
+
+		<h2 class="form-signin-heading">Error during activation!</h2>
+		<h3 th:text="${message}">Error</h3>
+
+	</div>
+
+</body>
+</html>

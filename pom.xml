@@ -35,8 +35,8 @@
 		</dependency>
 		<dependency>			<!-- so that thymeleaf can reach data with the help of Spring Sec. -->
 			<groupId>org.thymeleaf.extras</groupId>
-			<artifactId>thymeleaf-extras-springsecurity4</artifactId>
-			<version>3.0.2.RELEASE</version>		<!-- force the same release as Spring version -->
+			<artifactId>thymeleaf-extras-springsecurity5</artifactId>
+			<version>3.0.4.RELEASE</version>		<!-- force the same release as Spring version -->
 		</dependency>
 		<dependency>
 			<groupId>nz.net.ultraq.thymeleaf</groupId>

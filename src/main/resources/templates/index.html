@@ -9,6 +9,8 @@
 		
 		<h2>Starting page</h2>
 
+		<h3 th:unless="${message.isEmpty()}" th:text="${message}"> Message </h3>
+
 	</div>
 
 </body>
