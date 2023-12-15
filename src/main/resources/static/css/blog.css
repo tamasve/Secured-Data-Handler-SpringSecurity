@@ -19,11 +19,18 @@ address {
 	display:inline;
 }
 
+.grid {
+    display: grid;
+    grid-template-columns: auto;
+}
+
 .form-signin {
   max-width: 330px;
   width: 100px;
   padding: 15px;
   margin: 0 0 40px 0;
+  display: inline-grid;
+  grid-template-columns: 1fr;
 }
 .form-signin .form-signin-heading,
 .form-signin .checkbox {
@@ -45,9 +52,10 @@ address {
   z-index: 2;
 }
 .form-signin input[type="text"] {
-  margin-bottom: -1px;
+  margin-bottom: 1em;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
+  display: inline;
 }
 .form-signin input[type="password"] {
   margin-bottom: 10px;

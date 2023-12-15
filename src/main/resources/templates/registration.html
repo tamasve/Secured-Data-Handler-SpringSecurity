@@ -2,16 +2,18 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en" layout:decorate="/main">
 <head>
 	<title>Registration</title>
-	<link rel="stylesheet" href="./blog.css" th:href="@{blog.css}"/>
+	<link rel="stylesheet" href="../static/css/blog.css" th:href="@{blog.css}"/>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
 </head>
 <body>
 
-	<div layout:fragment="loginContent">
+	<div layout:fragment="specContent" >
 																									<!-- variable expressions ${...}    selection expressions *{...}    mapping expressions @{...} -->
-		<form name="registration" th:action="@{/reg}" th:object="${user}" method="post" class="form-signin">		<!-- th:object - this form receive a User object 'user' through Model -->
+		<form name="registration" th:action="@{/reg}" th:object="${user}" method="post" class="form-signin" >		<!-- th:object - this form receive a User object 'user' through Model -->
+
 			<h2 class="form-signin-heading">Please registrate</h2>
 			<h3 th:unless="${error.isEmpty()}" th:text="${error}">Error</h3>
+
 			<input type="text" id="username" name="username" th:field="*{username}" class="form-control" placeholder="Choose a username..."  /> 	<!-- th:field - field in the received User object - names = fields in POJO! -->
 			<input type="text" id="email" name="email" th:field="*{email}" class="form-control" placeholder="E-mail..."  />
 			<input type="password" id="password" name="password" th:field="*{password}"  class="form-control" placeholder="Password..." />

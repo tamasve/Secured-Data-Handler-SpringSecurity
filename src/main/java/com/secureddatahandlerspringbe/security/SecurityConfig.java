@@ -23,7 +23,8 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity.csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/", "/main", "/data", "/loginn", "/bad", "/mail", "/reg", "/registration", "/registrate", "/activation/**", "/error", "/blog.css").permitAll()
+                .requestMatchers("/css/**", "/", "/books", "/main", "/data", "/loginn", "/bad", "/mail",
+                        "/reg", "/registration", "/registrate", "/activation/**", "/error").permitAll()
                 .requestMatchers("/home", "/users", "/contracts").authenticated()           //.hasRole("USER")   // -> ROLE_USER!
                 .and().formLogin(
 //                        login -> login

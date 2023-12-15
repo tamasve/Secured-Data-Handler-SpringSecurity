@@ -1,0 +1,40 @@
+:root {
+    background-color: rgb(112, 187, 231);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.site {
+    color: yellow;
+    display: flex;
+    flex-direction: row;
+}
+
+.section1 {
+    background-color: rgb(215,215,215);
+    color: black;
+    border-radius: 2em;
+    width: 20vw;
+    height: 70vh;
+}
+
+.section1 > p {
+    margin: 1em;
+    padding: 2em;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.section2 {
+    width: 30vw;
+    height: 70vh;
+}
+
+.section2 > p {
+    width: auto;
+    height: auto;
+    padding: 1em;
+    margin: 1em;
+    border: 1px solid rgb(28, 0, 128);
+    border-radius: 2em;
+    font-size: 1rem;
+}

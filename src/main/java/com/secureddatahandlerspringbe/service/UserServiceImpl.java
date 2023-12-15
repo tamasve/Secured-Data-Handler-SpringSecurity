@@ -40,6 +40,7 @@ public class UserServiceImpl implements UserService {
         return "OK";
     }
 
+    // Generate a random 16-char activation code
     private String getActivationCode() {
         Random random = new Random();
         char[] word = new char[16];
@@ -52,7 +53,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public String userActivation(String code) {
         UserData userData = userDataRepository.findByActivation(code);
-        if (userData == null)  return "No such valid activation code available";
+        if (userData == null)  return "This activation code is no longer valid";
         userData.setActivation("");
         userData.setEnabled(true);
         userDataRepository.save(userData);

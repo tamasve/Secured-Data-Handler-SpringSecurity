@@ -9,8 +9,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<title>Main page</title>
 	
-	<link rel="stylesheet" href="./blog.css" th:href="@{/blog.css}"/>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="../static/css/blog.css" th:href="@{/blog.css}"/>
+	<link rel="stylesheet" href="../static/css/books.css" th:href="@{/books.css}"/>
+<!--	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />-->
 		
 	<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css' />	
 	<link href='https://fonts.googleapis.com/css?family=Exo' rel='stylesheet' type='text/css' />
@@ -29,8 +30,8 @@
 				        <li class=""><a href="/login">Login</a></li>
 				    </ul>
 				    <div class="navbar-text navbar-right">
-				    	Welcome <span sec:authentication="principal.name">Anonymous </span>			<!-- param received from Spring Sec. -->
-			           <form sec:authorize="isAuthenticated()" id="frmlogout" th:action="@{/logout}" method="post" class="form-inline">		<!-- this content appears only when the user is authenticated: a mini form -->
+				    	Welcome <span sec:authentication="name" th:text="${username}" style="color:red; font-weight:bold;"> Anonymous </span>
+			           <form sec:authorize="isAuthenticated()" id="frmlogout" th:action="@{/logout}" method="post" class="form-inline">
 				    		>> <a href="javascript:{}" onclick="document.getElementById('frmlogout').submit(); return false;">Logout</a>
 				      </form>
 				    </div>
@@ -38,7 +39,7 @@
 		    </div>
 		</nav>
 		
-		<div layout:fragment="loginContent">
+		<div layout:fragment="specContent" class="grid">
 		</div>
 
 

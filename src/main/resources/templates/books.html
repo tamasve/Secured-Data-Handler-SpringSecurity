@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" >
+<head>
+	<title>Books on Amazon</title>
+	<link rel="stylesheet" href="/css/books.css" th:href="@{/css/books.css}"/>
+<!--	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />-->
+</head>
+<body>
+
+<div>
+
+	<h1>Books on Amazon</h1>
+    <main class="site">
+		<section class="section1">
+            <p>MENU</p>
+		</section>
+		<section th:each="book : ${books}" class="section2">
+			<p th:text="${book.writer}">Helene Fielding</p>
+			<p th:text="${book.title}">The way around</p>
+			<p th:text="${book.advert}">Exciting</p>
+			<p th:text="${book.content}">Content</p>
+			<p><a th:text="${book.link}">Link</a></p>
+		</section>
+    </main>
+
+</div>
+
+</body>
+</html>

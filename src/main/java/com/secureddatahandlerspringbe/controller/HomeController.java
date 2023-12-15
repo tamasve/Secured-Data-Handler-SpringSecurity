@@ -1,6 +1,7 @@
 package com.secureddatahandlerspringbe.controller;
 
 import com.secureddatahandlerspringbe.security.UserData;
+import com.secureddatahandlerspringbe.service.BookService;
 import com.secureddatahandlerspringbe.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,11 +18,11 @@ public class HomeController {
 
 
     private UserService userService;
-
+    private BookService bookService;
     @Autowired
-    public void setUserService(UserService userService) {
-        this.userService = userService;
-    }
+    public void setUserService(UserService userService) { this.userService = userService; }
+    @Autowired
+    public void setBookService(BookService bookService) { this.bookService = bookService; }
 
 
     @GetMapping("/loginn")
@@ -49,26 +50,29 @@ public class HomeController {
             model.addAttribute("error", "Error! - Registration data contain void param");
             return "registration";
         };
+        // Otherwise register user
         String message = userService.registerUser(user);
         log.info(message);
-        // any error during service activity
+        // any error during service activity >> back to registration page
         if (!message.equals("OK")) {
             model.addAttribute("user", user);
 //                    new UserData(0, user.getUsername(), user.getPassword(), user.getEmail(), "", "", false));
             model.addAttribute("error", message);
             return "registration";
         }
-        // new user save into DB was OK
+        // registration was OK
         model.addAttribute("message", "Registration was OK. You have to receive an e-mail about the activation.");
         return "index";
     }
 
+    // user gets here after clicking onto the activation link
     @GetMapping("/activation/{code}")
     public String activation(@PathVariable("code") String code, Model model) {
         log.info("code: " + code);
-        String message = userService.userActivation(code);
+        String message = userService.userActivation(code);  // find user by act.code
         log.info(message);
-        if (!message.equals("OK")) {
+        if (!message.equals("OK")) {    // no user found >> error page
+            model.addAttribute("header", "Error during activation!");
             model.addAttribute("message", message);
             return "error";
         }
@@ -78,11 +82,20 @@ public class HomeController {
 
     // == ==
 
+    // root page
     @GetMapping("/")
     public String index(Model model) {
-        log.info("user logged in: " + SecurityContextHolder.getContext().getAuthentication().getName());
+        String userLoggedIn = SecurityContextHolder.getContext().getAuthentication().getName();
+        log.info("user logged in: " + userLoggedIn);
         model.addAttribute("message", "");
+        model.addAttribute("username", userLoggedIn);
         return "index";
+    }
+
+    @GetMapping("/books")
+    public String books(Model model) {
+        model.addAttribute("books", bookService.findAll());
+        return "books";
     }
 
     @GetMapping("/main")
@@ -93,7 +106,8 @@ public class HomeController {
     @ExceptionHandler
     public String exceptionHandler(Model model, Exception exception) {
         log.error("Exception happened");
-        model.addAttribute("message", exception.getCause());
+        model.addAttribute("header", "Error!");
+        model.addAttribute("message", exception.getMessage());
         return "error";
     }
 }
