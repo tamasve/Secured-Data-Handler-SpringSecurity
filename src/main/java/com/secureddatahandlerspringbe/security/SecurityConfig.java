@@ -1,5 +1,7 @@
 package com.secureddatahandlerspringbe.security;
 
+import com.secureddatahandlerspringbe.entity.UserData;
+import com.secureddatahandlerspringbe.repository.UserDataRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,9 +25,9 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity.csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/css/**", "/", "/books", "/main", "/data", "/loginn", "/bad", "/mail",
+                .requestMatchers("/css/**", "/", "/main", "/data", "/loginn", "/bad", "/mail",
                         "/reg", "/registration", "/registrate", "/activation/**", "/error").permitAll()
-                .requestMatchers("/home", "/users", "/contracts").authenticated()           //.hasRole("USER")   // -> ROLE_USER!
+                .requestMatchers("/home", "/users", "/contracts", "/books").authenticated()           //.hasRole("USER")   // -> ROLE_USER!
                 .and().formLogin(
 //                        login -> login
 //                        .loginPage("/login") 				// we give an own login html site - this will ask for login data and send them back to Spring Sec.

@@ -1,5 +1,6 @@
-package com.secureddatahandlerspringbe.security;
+package com.secureddatahandlerspringbe.repository;
 
+import com.secureddatahandlerspringbe.entity.UserData;
 import org.springframework.data.repository.ListCrudRepository;
 import org.springframework.stereotype.Repository;
 

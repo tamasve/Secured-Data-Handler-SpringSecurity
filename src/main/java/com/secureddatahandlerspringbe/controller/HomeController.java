@@ -1,11 +1,12 @@
 package com.secureddatahandlerspringbe.controller;
 
-import com.secureddatahandlerspringbe.security.UserData;
+import com.secureddatahandlerspringbe.entity.UserData;
 import com.secureddatahandlerspringbe.service.BookService;
 import com.secureddatahandlerspringbe.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -93,15 +94,14 @@ public class HomeController {
     }
 
     @GetMapping("/books")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public String books(Model model) {
+        String userLoggedIn = SecurityContextHolder.getContext().getAuthentication().getName();
+        model.addAttribute("username", userLoggedIn);
         model.addAttribute("books", bookService.findAll());
         return "books";
     }
 
-    @GetMapping("/main")
-    public String mainPage() {
-        return "main";
-    }
 
     @ExceptionHandler
     public String exceptionHandler(Model model, Exception exception) {

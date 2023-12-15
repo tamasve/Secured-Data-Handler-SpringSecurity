@@ -1,6 +1,6 @@
 package com.secureddatahandlerspringbe.service;
 
-import com.secureddatahandlerspringbe.security.UserData;
+import com.secureddatahandlerspringbe.entity.UserData;
 
 public interface UserService {
 

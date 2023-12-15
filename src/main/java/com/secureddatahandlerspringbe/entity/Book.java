@@ -1,4 +1,4 @@
-package com.secureddatahandlerspringbe.repository;
+package com.secureddatahandlerspringbe.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "books")
 public class Book {
 
     @Id

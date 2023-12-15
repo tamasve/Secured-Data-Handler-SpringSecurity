@@ -2,8 +2,7 @@ package com.secureddatahandlerspringbe.repository;
 
 import java.io.FileInputStream;
 
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellType;
+import com.secureddatahandlerspringbe.entity.Book;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -39,14 +38,15 @@ public class DataInjector implements CommandLineRunner {
 			Sheet sheet = workbook.getSheet("books");
 
 			for (Row row : sheet) {
+				log.info(">> data row of " + row.getCell(0).getStringCellValue());
 				if (row.getRowNum() != 0) {
 					bookRepository.save(
 							new Book(
 									row.getCell(0).getStringCellValue(),
 									row.getCell(1).getStringCellValue(),
-									row.getCell(2).getStringCellValue().substring(0, 100),
-									row.getCell(3).getStringCellValue().substring(0, 100),
-									row.getCell(4).getStringCellValue().substring(0, 100)
+									row.getCell(2).getStringCellValue().substring(0, 120) + "...",
+									row.getCell(3).getStringCellValue().substring(0, 120) + "...",
+									row.getCell(4).getStringCellValue().substring(0, 120) + "..."
 							)
 					);
 				}

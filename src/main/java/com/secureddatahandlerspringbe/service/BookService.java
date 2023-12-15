@@ -1,6 +1,6 @@
 package com.secureddatahandlerspringbe.service;
 
-import com.secureddatahandlerspringbe.repository.Book;
+import com.secureddatahandlerspringbe.entity.Book;
 import com.secureddatahandlerspringbe.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

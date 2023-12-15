@@ -1,4 +1,4 @@
-package com.secureddatahandlerspringbe.security;
+package com.secureddatahandlerspringbe.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

@@ -11,7 +11,7 @@
 	
 	<link rel="stylesheet" href="../static/css/blog.css" th:href="@{/blog.css}"/>
 	<link rel="stylesheet" href="../static/css/books.css" th:href="@{/books.css}"/>
-<!--	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />-->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
 		
 	<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css' />	
 	<link href='https://fonts.googleapis.com/css?family=Exo' rel='stylesheet' type='text/css' />
@@ -28,6 +28,7 @@
 				        <li class="active"><a href="/">Index page</a></li>
 				        <li class=""><a href="/registration">Registration</a></li>
 				        <li class=""><a href="/login">Login</a></li>
+				        <li class=""><a href="/books">Books</a></li>
 				    </ul>
 				    <div class="navbar-text navbar-right">
 				    	Welcome <span sec:authentication="name" th:text="${username}" style="color:red; font-weight:bold;"> Anonymous </span>

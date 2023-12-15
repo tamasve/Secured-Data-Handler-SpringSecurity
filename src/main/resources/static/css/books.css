@@ -1,12 +1,17 @@
 :root {
-    background-color: rgb(112, 187, 231);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.site {
+h1 {
+    margin: 1em;
+}
+
+.flex-layout {
     color: yellow;
     display: flex;
     flex-direction: row;
+    background-color: rgb(112, 187, 231);
+    border-radius: 2em;
 }
 
 .section1 {
@@ -15,6 +20,7 @@
     border-radius: 2em;
     width: 20vw;
     height: 70vh;
+    margin: 2em;
 }
 
 .section1 > p {
@@ -27,6 +33,7 @@
 .section2 {
     width: 30vw;
     height: 70vh;
+    margin: 2em;
 }
 
 .section2 > p {
@@ -37,4 +44,8 @@
     border: 1px solid rgb(28, 0, 128);
     border-radius: 2em;
     font-size: 1rem;
+}
+
+.section2 > a {
+    color: whitesmoke;
 }

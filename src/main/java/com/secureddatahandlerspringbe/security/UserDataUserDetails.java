@@ -1,5 +1,6 @@
 package com.secureddatahandlerspringbe.security;
 
+import com.secureddatahandlerspringbe.entity.UserData;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
